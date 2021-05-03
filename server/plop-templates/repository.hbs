@@ -1,0 +1,7 @@
+import { EntityRepository, Repository } from 'typeorm'
+import { {{name}} } from '../entities/{{name}}'
+
+@EntityRepository({{name}})
+export class {{name}}Repository extends Repository<{{name}}> {}
+
+  export { {{name}} }

@@ -1,0 +1,4 @@
+{
+  "*.([jt]s(x|))": "eslint --fix",
+  "*.([jt]s(x|)|md(x|)|json|y(a|)ml)": "prettier --write"
+}

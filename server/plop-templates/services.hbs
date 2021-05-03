@@ -1,0 +1,16 @@
+import { BaseServices } from "../infra/Services"
+import { {{name}}Repository, {{name}} } from "../repositories/{{name}}Repository"
+
+export class {{name}}Services extends BaseServices<{{name}}Repository> {
+  constructor(){
+  super({{name}}Repository)
+  }
+
+  async create(data: Partial<{{name}}>){
+    const {{name}} = this.repository.create(data)
+
+    await this.repository.save({{name}})
+
+    return {{name}}
+    }
+    }
