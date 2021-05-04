@@ -1,16 +1,13 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateClass1620079698293 implements MigrationInterface {
+export class CreateAdmin1620088065199 implements MigrationInterface {
   table = new Table({
-    name: 'classes',
+    name: 'admins',
     columns: [
       { type: 'uuid', name: 'id', isPrimary: true },
-      { type: 'varchar', name: 'slug', isUnique: true },
-      { type: 'int', name: 'number' },
-      { type: 'varchar', name: 'title' },
-      { type: 'varchar', name: 'content' },
-      { type: 'varchar', name: 'youtube_video_id' },
-      { type: 'boolean', name: 'show', default: false },
+      { type: 'varchar', name: 'name' },
+      { type: 'varchar', name: 'email', isUnique: true },
+      { type: 'varchar', name: 'password' },
       { type: 'timestamp', name: 'created_at', default: 'now()' },
       { type: 'timestamp', name: 'updated_at', default: 'now()' }
     ]

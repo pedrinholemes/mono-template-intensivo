@@ -3,6 +3,7 @@ import { NodePlopAPI } from 'plop'
 
 export default function PlopFunction(plop: NodePlopAPI): void {
   plop.setWelcomeMessage('Welcome to Plop.JS')
+  let tableNameIsPrimary = true
   plop.setGenerator('entity', {
     description: 'Generate a entity files',
     prompts: [
@@ -13,14 +14,27 @@ export default function PlopFunction(plop: NodePlopAPI): void {
       },
       {
         type: 'input',
-        name: 'path',
-        message: 'path name',
-        transformer(_, d) {
-          return String(d.name).toLowerCase()
+        name: 'tableName',
+        message: 'table name',
+        transformer: (value: string, answers, _) => {
+          const name = answers.name.toLowerCase()
+          if (tableNameIsPrimary) {
+            tableNameIsPrimary = false
+            value = name
+            return `${value}s`
+          } else {
+            return value
+          }
         }
       }
     ],
     actions: [
+      {
+        type: 'add',
+        path: './src/entities/{{name}}.ts',
+        templateFile: './plop-templates/entity.hbs',
+        skipIfExists: true
+      },
       {
         type: 'add',
         path: './src/services/{{name}}Services.ts',
@@ -38,17 +52,6 @@ export default function PlopFunction(plop: NodePlopAPI): void {
         path: './src/controllers/{{name}}Controller.ts',
         templateFile: './plop-templates/controller.hbs',
         skipIfExists: true
-      },
-      {
-        type: 'modify',
-        path: './src/routes.ts',
-        pattern: /(import { [A-Za-z, ]{1,} } from '[A-Za-z./]{1,}'\n)(\nconst routes = Router\(\))/g,
-        template: `
-        import { {{name}}Controller } from './controllers/{{name}}Controller'
-        $1
-        $2
-        routes.use('/{{name}}', new {{name}}Controller().router)
-`
       },
       { type: 'lint' }
     ]

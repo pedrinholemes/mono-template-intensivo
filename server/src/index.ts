@@ -7,6 +7,6 @@ import { routes } from './routes'
 new Server()
   .registerRouter(routes)
   .start(process.env.PORT || 3333)
-  .then(server => {
+  .then(() => {
     console.log('Server running')
   })

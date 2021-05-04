@@ -1,0 +1,18 @@
+import {
+PrimaryColumn,
+CreateDateColumn,
+UpdateDateColumn,
+Entity
+} from 'typeorm'
+
+@Entity('{{tableName}}')
+export class {{name}} {
+@PrimaryColumn()
+id: string
+
+@CreateDateColumn()
+created_at: Date
+
+@UpdateDateColumn()
+updated_at: Date
+}
